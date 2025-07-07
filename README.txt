@@ -12,4 +12,4 @@ Launch the game
 
 How to use
 
-In game, you can now Prepare your weapon with a left click.
+In game, you can now show your gold amount on HUD.

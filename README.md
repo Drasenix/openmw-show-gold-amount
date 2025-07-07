@@ -8,10 +8,10 @@ OpenMW 48 ?
 
 Create a folder containing the downloaded files.
 Launch OpenMW launcher and add Data Files by selecting the created folder
-Check the box named clickToprepareWeapon.omwscript
+Check the box named showGoldAmount.omwscript
 
 Launch the game
 
 # How to use
 
-In game, you can now Prepare your weapon with a left click.
+In game, you can now show your gold amount on HUD.
