@@ -7,11 +7,11 @@ OpenMW 48 ?
 # How to install
 
 Create a folder containing the downloaded files.
-Launch OpenMW launcher and add Data Files by selecting the created folder
-Check the box named showGoldAmount.omwscript
-
+Launch OpenMW launcher and add Data Files by selecting the created folder.
+Check the box named showGoldAmount.omwscript.
 Launch the game
 
 # How to use
 
-In game, you can now show your gold amount on HUD.
+In game, go to the "Scripts" tab in the options.
+You can choose the gold Name, the Text SIze, the positionning (x,y) and whether or not to display the gold amount when the game is on pause.
