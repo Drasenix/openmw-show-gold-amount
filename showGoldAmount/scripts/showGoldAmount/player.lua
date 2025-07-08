@@ -18,14 +18,13 @@ local function generateAmountText()
    local goldName = l10n(configPlayer.options.s_GoldName)
    local amountText = tostring(goldAmount)   
    
-   if goldName ~= l10n(NONE_L10N_ENTRY) then
-      amountText = amountText .. " " .. goldName
+   if goldName == l10n(NONE_L10N_ENTRY) then
+      return amountText
    end
 
-   if goldAmount > 1 then
-      amountText = amountText .. "s" 
-   end
-   return amountText
+   amountText = amountText .. " " .. goldName
+   
+   return goldAmount > 1 and amountText .. "s" or amountText
 end
 
 local function renderGoldAmountUI()

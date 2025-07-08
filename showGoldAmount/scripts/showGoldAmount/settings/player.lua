@@ -62,6 +62,7 @@ I.Settings.registerGroup {
                 items = {
                     'Gold',
                     'Septim',
+                    'Drake',
                     'None'
                 }
             },
