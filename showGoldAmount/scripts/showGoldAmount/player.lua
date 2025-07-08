@@ -93,11 +93,11 @@ local function createGoldMenu()
             content = ui.content {
                {
                   type = ui.TYPE.Text,
+                  template = I.MWUI.templates.textNormal,
                   props = {
                         anchor = util.vector2(.5, .5),
                         relativePosition = util.vector2(.5, .5),
                         text = "Gold",
-                        textColor = util.color.rgb(255, 255, 255),
                         textSize = text_size,
                   }
                }
