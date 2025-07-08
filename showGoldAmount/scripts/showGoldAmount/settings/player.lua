@@ -31,7 +31,7 @@ I.Settings.registerGroup {
                 min = 0.0,
                 max = 1.0,
             },
-            default = 0.925,
+            default = 0.01,
         },
         {
             key = 'n_InfoWindowOffsetYRelative',
@@ -41,7 +41,7 @@ I.Settings.registerGroup {
                 min = 0.0,
                 max = 1.0,
             },
-            default = 0.975,
+            default = 0.985,
         },
         {
             key = 'n_TextSize',
