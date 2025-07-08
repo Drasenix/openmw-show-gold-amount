@@ -2,10 +2,7 @@ local ui = require('openmw.ui')
 local self = require('openmw.self')
 local types = require('openmw.types')
 local util = require("openmw.util")
-
-
 local I = require('openmw.interfaces')
-local auxUi = require('openmw_aux.ui')
 
 
 
@@ -23,14 +20,13 @@ local function onUpdate(dt)
       layer = "Windows",
       type = ui.TYPE.Text,
       props = {
-         text = tostring(goldAmount),         
+         text = tostring(goldAmount) .. " gold",         
          textSize = 20,
-         relativePosition = util.vector2(0.09, 0.9),
-         anchor = util.vector2(0.5, 0.5),
+         relativePosition = util.vector2(0.16, 0.95),
+         
          visible = true,
       },
    })
-   
 end
 
 
