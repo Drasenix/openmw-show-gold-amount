@@ -10,19 +10,32 @@ local l10n = core.l10n('showGoldAmount')
 
 local selfObject = self
 local element = nil
+local NONE_L10N_ENTRY = "None"
 
-local function renderGoldAmountUI()
+local function generateAmountText()
    local playerInventory = types.Actor.inventory(self.object)
    local goldAmount = playerInventory:countOf('gold_001')
    local goldName = l10n(configPlayer.options.s_GoldName)
-   local amountText = goldName == "None" and tostring(goldAmount) or tostring(goldAmount) .. " " .. goldName
+   local amountText = tostring(goldAmount)   
    
+   if goldName ~= l10n(NONE_L10N_ENTRY) then
+      amountText = amountText .. " " .. goldName
+   end
+
+   if goldAmount > 1 then
+      amountText = amountText .. "s" 
+   end
+   return amountText
+end
+
+local function renderGoldAmountUI()
+
    element = ui.create({
       template = I.MWUI.templates.textNormal,
       layer = "Windows",
       type = ui.TYPE.Text,
       props = {
-         text = amountText,         
+         text = generateAmountText(),         
          textSize = configPlayer.options.n_TextSize,
          relativePosition = util.vector2(configPlayer.options.n_InfoWindowOffsetXRelative, configPlayer.options.n_InfoWindowOffsetYRelative),         
          visible = true,
