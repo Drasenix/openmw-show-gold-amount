@@ -15,7 +15,8 @@ local function onFrame(dt)
       element:destroy()
    end
    local windowOpened = core.isWorldPaused()
-   if not windowOpened then 
+   local hudVisible = I.UI.isHudVisible()
+   if not windowOpened and hudVisible then 
       local playerInventory = types.Actor.inventory(self.object)
       local goldAmount = playerInventory:countOf('gold_001')
       element = ui.create({
