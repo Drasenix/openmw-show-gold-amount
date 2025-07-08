@@ -47,8 +47,12 @@ local function renderGoldAmountUI()
    })
 end
 
-local function handleFocus() 
+local function handleFocusWon() 
    ui.showMessage("focus gagné!")
+end
+
+local function handleFocusLost() 
+   ui.showMessage("focus perdu!")
 end
 
 local function createGoldMenu()
@@ -144,11 +148,14 @@ local function createGoldMenu()
                      textSize = text_size,                  
                   }
                }     
+            },
+            events = {
+               focusGain = async:callback(handleFocusLost)
             }
          }
       },
       events = {
-         focusGain = async:callback(handleFocus)
+         focusGain = async:callback(handleFocusWon)
       } 
    }
 
