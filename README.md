@@ -1,8 +1,8 @@
 # Requirements
 
-OpenMW 49 (version from which i have created the mod)
+OpenMW 49 (version from which i created the mod)
 
-OpenMW 48 ?
+OpenMW 48 (it may work but never tested)
 
 # How to install
 
