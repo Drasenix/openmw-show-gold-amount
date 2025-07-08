@@ -47,12 +47,12 @@ local function onFrame(dt)
    if element ~= nil then
       element:destroy()
    end
-   local windowOpened = core.isWorldPaused()
+   local gameInPause = core.isWorldPaused()
    local hudVisible = I.UI.isHudVisible()
    local shouldDisplayOnPause = configPlayer.options.b_ShowGoldAmountOnGamePaused
    
    if not hudVisible then return end
-   if windowOpened then
+   if gameInPause then
       if shouldDisplayOnPause then
          renderGoldAmountUI()
       end
