@@ -13,6 +13,7 @@ local element = nil
 local NONE_L10N_ENTRY = "None"
 local GOLD_L10N_ENTRY = "Gold"
 
+
 local function generateAmountText()
    local playerInventory = types.Actor.inventory(self.object)
    local goldAmount = playerInventory:countOf('gold_001')
@@ -45,6 +46,112 @@ local function renderGoldAmountUI()
    })
 end
 
+local function createGoldMenu()
+   local menu_block_path = "Textures\\menu_head_block_middle.dds"
+
+   local screenSize = ui.screenSize()
+   local width_ratio = 0.05
+   local height_ratio = 0.1
+   local widget_width = screenSize.x * width_ratio
+   local widget_height = screenSize.y * height_ratio
+   local menu_block_width = widget_width * 0.30
+   local text_size = 18
+
+   local header = {
+      type = ui.TYPE.Flex,
+      props = {
+         size = util.vector2(widget_width, 20),
+         horizontal = true,
+      },
+      content = ui.content {
+         {
+            type = ui.TYPE.Image,
+            props = {
+               anchor = util.vector2(.5, .5),
+               size = util.vector2(menu_block_width, 20),
+               resource = ui.texture {
+                  path = menu_block_path,
+                  size = util.vector2(menu_block_width, 15)
+               }
+            }
+         },
+         {
+            type = ui.TYPE.Widget,
+            props = {
+               size = util.vector2(widget_width * 0.4, 20),
+               anchor = util.vector2(.5, .5)
+            },
+            content = ui.content {
+               {
+                  type = ui.TYPE.Text,
+                  props = {
+                        anchor = util.vector2(.5, .5),
+                        relativePosition = util.vector2(.5, .5),
+                        text = "Gold",
+                        textColor = util.color.rgb(255, 255, 255),
+                        textSize = text_size,
+                  }
+               }
+            }
+         },
+         {
+            type = ui.TYPE.Image,
+            props = {
+               anchor = util.vector2(.5, .5),
+               size = util.vector2(menu_block_width, 20),
+               resource = ui.texture {
+                  path = menu_block_path,
+                  size = util.vector2(menu_block_width, 15) }
+            }
+         }
+      }
+   }
+
+   local mainWindow = {
+      type = ui.TYPE.Container,
+      layer = "Windows",
+      template = I.MWUI.templates.boxTransparentThick,
+      props = {
+         name = "mainWindow",
+         relativePosition = util.vector2(.5, .5),
+         anchor = util.vector2(.5, .5),
+         propagateEvents = false
+      },
+      content = ui.content {
+         {
+            type = ui.TYPE.Widget,
+            props = {
+               name = "mainWindowWidget",
+               size = util.vector2(widget_width, widget_height),
+               horizontal = false,
+               align = ui.ALIGNMENT.Center,
+               arrange = ui.ALIGNMENT.Center
+            },
+            content = ui.content {
+               header,
+               {
+                  type = ui.TYPE.Text,
+                  props = {
+                        anchor = util.vector2(.5, .5),
+                        relativePosition = util.vector2(.5, .5),
+                        text = generateAmountText(),
+                        textColor = util.color.rgb(255, 255, 255),
+                        textSize = text_size,
+                  
+                  }
+               }     
+            }
+         }
+      }
+   }
+
+   questMenu = ui.create(mainWindow)
+end
+
+local function onKeyPress(key)
+   createGoldMenu()
+end
+
 local function onFrame(dt)
    if element ~= nil then
       element:destroy()
@@ -65,6 +172,7 @@ end
 
 return {
    engineHandlers = {
-      onFrame = onFrame
+      onFrame = onFrame,
+      onKeyPress = onKeyPress
    }
 }
