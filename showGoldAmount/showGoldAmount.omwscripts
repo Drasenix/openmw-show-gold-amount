@@ -1,1 +1,2 @@
-PLAYER: scripts/showGoldAmount/hud.lua
+PLAYER: scripts/showGoldAmount/player.lua
+MENU: scripts/showGoldAmount/settings/player.lua
