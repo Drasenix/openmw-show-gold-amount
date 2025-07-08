@@ -11,6 +11,7 @@ local l10n = core.l10n('showGoldAmount')
 local selfObject = self
 local element = nil
 local NONE_L10N_ENTRY = "None"
+local GOLD_L10N_ENTRY = "Gold"
 
 local function generateAmountText()
    local playerInventory = types.Actor.inventory(self.object)
@@ -24,6 +25,8 @@ local function generateAmountText()
 
    amountText = amountText .. " " .. goldName
    
+   if goldName == l10n(GOLD_L10N_ENTRY) then return amountText end
+
    return goldAmount > 1 and amountText .. "s" or amountText
 end
 
