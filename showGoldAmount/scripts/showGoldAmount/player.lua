@@ -167,30 +167,29 @@ local function isInventoryOpen()
    return I.UI.getMode() == 'Interface'
 end
 
-local function onFrame(dt)
-   
+local function destroyUiElements()
    if goldMenu ~= nil then         
       goldMenu:destroy()
    end
-
+   
    if element ~= nil then
       element:destroy()
    end
+end
+
+local function onFrame(dt)
+   
+   destroyUiElements()
 
    if isInventoryOpen() then
       createGoldMenu()   
    end   
 
-   local gameInPause = core.isWorldPaused()
    local hudVisible = I.UI.isHudVisible()
-   local shouldDisplayOnPause = configPlayer.options.b_ShowGoldAmountOnGamePaused
    
    if not hudVisible then return end
-   if gameInPause then
-      if shouldDisplayOnPause then
-         renderGoldAmountUI()
-      end
-   else
+   
+   if not isInventoryOpen() then
       renderGoldAmountUI()
    end
 end

@@ -67,13 +67,6 @@ I.Settings.registerGroup {
                 }
             },
             default = 'Gold',
-        },
-        {
-            key = 'b_ShowGoldAmountOnGamePaused',
-            renderer = 'checkbox',
-            name = 'ShowGoldAmountOnGamePaused',
-            description = 'ShowGoldAmountOnGamePausedDesc',
-            default = false,
-        },
+        }
     },
 }
