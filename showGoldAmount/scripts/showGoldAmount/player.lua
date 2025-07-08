@@ -52,13 +52,13 @@ local function onFrame(dt)
    local shouldDisplayOnPause = configPlayer.options.b_ShowGoldAmountOnGamePaused
    
    if not hudVisible then return end
-   if not windowOpened then
+   if windowOpened then
+      if shouldDisplayOnPause then
+         renderGoldAmountUI()
+      end
+   else
       renderGoldAmountUI()
-      return
-   end 
-   
-   if not shouldDisplayOnPause then return end 
-   renderGoldAmountUI()
+   end
 end
 
 return {
