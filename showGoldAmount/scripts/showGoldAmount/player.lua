@@ -97,7 +97,7 @@ local function createGoldMenu()
                   props = {
                         anchor = util.vector2(.5, .5),
                         relativePosition = util.vector2(.5, .5),
-                        text = "Gold",
+                        text = l10n(configPlayer.options.s_GoldName),
                         textSize = text_size,
                   }
                }
