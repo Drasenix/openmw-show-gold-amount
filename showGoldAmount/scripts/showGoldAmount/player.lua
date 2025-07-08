@@ -140,12 +140,12 @@ local function createGoldMenu()
                header,
                {
                   type = ui.TYPE.Text,
+                  template = I.MWUI.templates.textNormal,             
                   props = {
                      anchor = util.vector2(.5, .5),
                      relativePosition = util.vector2(.5, .5),
                      text = generateAmountText(),
-                     textColor = util.color.rgb(255, 255, 255),
-                     textSize = text_size,                  
+                     textSize = text_size,                          
                   }
                }     
             },
