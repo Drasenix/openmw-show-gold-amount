@@ -4,6 +4,7 @@ local core = require('openmw.core')
 local types = require('openmw.types')
 local util = require("openmw.util")
 local I = require('openmw.interfaces')
+local async = require('openmw.async')
 local configPlayer = require('scripts.showGoldAmount.config.player')
 local l10n = core.l10n('showGoldAmount')
 
@@ -44,6 +45,10 @@ local function renderGoldAmountUI()
          visible = true,
       },
    })
+end
+
+local function handleFocus() 
+   ui.showMessage("focus gagné!")
 end
 
 local function createGoldMenu()
@@ -132,17 +137,19 @@ local function createGoldMenu()
                {
                   type = ui.TYPE.Text,
                   props = {
-                        anchor = util.vector2(.5, .5),
-                        relativePosition = util.vector2(.5, .5),
-                        text = generateAmountText(),
-                        textColor = util.color.rgb(255, 255, 255),
-                        textSize = text_size,
-                  
+                     anchor = util.vector2(.5, .5),
+                     relativePosition = util.vector2(.5, .5),
+                     text = generateAmountText(),
+                     textColor = util.color.rgb(255, 255, 255),
+                     textSize = text_size,                  
                   }
                }     
             }
          }
-      }
+      },
+      events = {
+         focusGain = async:callback(handleFocus)
+      } 
    }
 
    questMenu = ui.create(mainWindow)
