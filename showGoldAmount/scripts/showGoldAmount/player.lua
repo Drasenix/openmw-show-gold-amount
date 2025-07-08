@@ -11,6 +11,7 @@ local l10n = core.l10n('showGoldAmount')
 
 local selfObject = self
 local element = nil
+local goldMenu = nil
 local NONE_L10N_ENTRY = "None"
 local GOLD_L10N_ENTRY = "Gold"
 
@@ -159,17 +160,27 @@ local function createGoldMenu()
       } 
    }
 
-   questMenu = ui.create(mainWindow)
+   goldMenu = ui.create(mainWindow)
 end
 
-local function onKeyPress(key)
-   createGoldMenu()
+local function isInventoryOpen()
+   return I.UI.getMode() == 'Interface'
 end
 
 local function onFrame(dt)
+   
+   if goldMenu ~= nil then         
+      goldMenu:destroy()
+   end
+
    if element ~= nil then
       element:destroy()
    end
+
+   if isInventoryOpen() then
+      createGoldMenu()   
+   end   
+
    local gameInPause = core.isWorldPaused()
    local hudVisible = I.UI.isHudVisible()
    local shouldDisplayOnPause = configPlayer.options.b_ShowGoldAmountOnGamePaused
@@ -186,7 +197,6 @@ end
 
 return {
    engineHandlers = {
-      onFrame = onFrame,
-      onKeyPress = onKeyPress
+      onFrame = onFrame      
    }
 }
