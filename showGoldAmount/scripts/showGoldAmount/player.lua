@@ -10,41 +10,12 @@ local l10n = core.l10n('showGoldAmount')
 
 local selfObject = self
 local element = nil
-local function onFrame(dt)
-   if element ~= nil then
-      element:destroy()
-   end
-   local windowOpened = core.isWorldPaused()
-   local hudVisible = I.UI.isHudVisible()
-   local shouldDisplayOnPause = configPlayer.options.b_ShowGoldAmountOnGamePaused
-   
-   if not hudVisible then return end
-   if not windowOpened then
-      local playerInventory = types.Actor.inventory(self.object)
-      local goldAmount = playerInventory:countOf('gold_001')
-      local goldName = l10n(configPlayer.options.s_GoldName)
-      local amountText = goldName ~= "None" and tostring(goldAmount) .. " " .. goldName or tostring(goldAmount)
-      
-      element = ui.create({
-         template = I.MWUI.templates.textNormal,
-         layer = "Windows",
-         type = ui.TYPE.Text,
-         props = {
-            text = amountText,         
-            textSize = configPlayer.options.n_TextSize,
-            relativePosition = util.vector2(configPlayer.options.n_InfoWindowOffsetXRelative, configPlayer.options.n_InfoWindowOffsetYRelative),         
-            visible = true,
-         },
-      })
-      return
-   end 
-   
-   if not shouldDisplayOnPause then return end 
 
+local function renderGoldAmountUI()
    local playerInventory = types.Actor.inventory(self.object)
    local goldAmount = playerInventory:countOf('gold_001')
    local goldName = l10n(configPlayer.options.s_GoldName)
-   local amountText = goldName ~= "None" and tostring(goldAmount) .. " " .. goldName or tostring(goldAmount)
+   local amountText = goldName == "None" and tostring(goldAmount) or tostring(goldAmount) .. " " .. goldName
    
    element = ui.create({
       template = I.MWUI.templates.textNormal,
@@ -56,9 +27,26 @@ local function onFrame(dt)
          relativePosition = util.vector2(configPlayer.options.n_InfoWindowOffsetXRelative, configPlayer.options.n_InfoWindowOffsetYRelative),         
          visible = true,
       },
-   })   
+   })
 end
 
+local function onFrame(dt)
+   if element ~= nil then
+      element:destroy()
+   end
+   local windowOpened = core.isWorldPaused()
+   local hudVisible = I.UI.isHudVisible()
+   local shouldDisplayOnPause = configPlayer.options.b_ShowGoldAmountOnGamePaused
+   
+   if not hudVisible then return end
+   if not windowOpened then
+      renderGoldAmountUI()
+      return
+   end 
+   
+   if not shouldDisplayOnPause then return end 
+   renderGoldAmountUI()
+end
 
 return {
    engineHandlers = {
