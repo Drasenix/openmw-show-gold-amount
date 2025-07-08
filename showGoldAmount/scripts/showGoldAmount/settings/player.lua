@@ -54,6 +54,22 @@ I.Settings.registerGroup {
             default = 20.0,
         },
         {
+            key = 's_GoldName',
+            renderer = 'select',
+            name = 'GoldName',
+            argument = {
+                l10n = 'showGoldAmount',
+                items = {
+                    'Gold',
+                    'Septim',
+                    'Golds',
+                    'Septims',
+                    'None'
+                }
+            },
+            default = 'Gold',
+        },
+        {
             key = 'b_ShowGoldAmountOnGamePaused',
             renderer = 'checkbox',
             name = 'ShowGoldAmountOnGamePaused',
