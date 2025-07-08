@@ -15,3 +15,7 @@ Launch the game
 
 In game, go to the "Scripts" tab in the options.
 You can choose the gold Name, the Text SIze, the positionning (x,y) and whether or not to display the gold amount when the game is on pause.
+
+# Nexus Mode
+
+https://www.nexusmods.com/morrowind/mods/57105
