@@ -1,9 +1,5 @@
-local async = require('openmw.async')
 local core = require('openmw.core')
-local input = require('openmw.input')
 local I = require('openmw.interfaces')
-local ui = require('openmw.ui')
-local util = require('openmw.util')
 
 local l10n = core.l10n('ShowGoldAmount')
 local versionString = "1.0.0"
