@@ -14,7 +14,20 @@ local element = nil
 local goldMenu = nil
 local NONE_L10N_ENTRY = "None"
 local GOLD_L10N_ENTRY = "Gold"
+local edition_mode = false
 
+local mainWindow = nil
+local screenSize = ui.screenSize()
+local width_ratio = 0.15
+local height_ratio = 0.05
+local widget_width = screenSize.x * width_ratio
+local widget_height = screenSize.y * height_ratio
+local menu_block_width = widget_width * 0.30
+local text_size = 18  
+
+
+local mouse_edition_current_position_x
+local mouse_edition_current_position_y
 
 local function generateAmountText()
    local playerInventory = types.Actor.inventory(self.object)
@@ -49,96 +62,56 @@ local function renderGoldAmountUI()
 end
 
 local function handleFocusWon() 
-   ui.showMessage("focus gagné!")
+   return
 end
 
-local function handleFocusLost() 
-   ui.showMessage("focus perdu!")
+local function handleFocusChildrenWon() 
+   return
 end
+
+local function handleMouseMove(MouseEvent)
+   if edition_mode then
+      mouse_position_x = MouseEvent.position.x
+      mouse_position_y = MouseEvent.position.y
+      delta_x = mouse_position_x - mouse_edition_current_position_x
+      delta_y = mouse_position_y - mouse_edition_current_position_y
+      
+      widget_width = widget_width + delta_x
+      widget_height = widget_height + delta_y
+
+      mouse_edition_current_position_x = mouse_position_x
+      mouse_edition_current_position_y = mouse_position_y
+
+   end
+end
+
+local function handleMousePress(MouseEvent)
+   edition_mode = not edition_mode
+   mouse_edition_current_position_x = MouseEvent.position.x
+   mouse_edition_current_position_y = MouseEvent.position.y
+   ui.showMessage(edition_mode and "Enter edition mode" or "Leaving edition mode")
+end
+
 
 local function createGoldMenu()
    local menu_block_path = "Textures\\menu_head_block_middle.dds"
 
-   local screenSize = ui.screenSize()
-   local width_ratio = 0.05
-   local height_ratio = 0.1
-   local widget_width = screenSize.x * width_ratio
-   local widget_height = screenSize.y * height_ratio
-   local menu_block_width = widget_width * 0.30
-   local text_size = 18
-
-   local header = {
-      type = ui.TYPE.Flex,
-      props = {
-         size = util.vector2(widget_width, 20),
-         horizontal = true,
-      },
-      content = ui.content {
-         {
-            type = ui.TYPE.Image,
-            props = {
-               anchor = util.vector2(.5, .5),
-               size = util.vector2(menu_block_width, 20),
-               resource = ui.texture {
-                  path = menu_block_path,
-                  size = util.vector2(menu_block_width, 15)
-               }
-            }
-         },
-         {
-            type = ui.TYPE.Widget,
-            props = {
-               size = util.vector2(widget_width * 0.4, 20),
-               anchor = util.vector2(.5, .5)
-            },
-            content = ui.content {
-               {
-                  type = ui.TYPE.Text,
-                  template = I.MWUI.templates.textNormal,
-                  props = {
-                        anchor = util.vector2(.5, .5),
-                        relativePosition = util.vector2(.5, .5),
-                        text = l10n(configPlayer.options.s_GoldName),
-                        textSize = text_size,
-                  }
-               }
-            }
-         },
-         {
-            type = ui.TYPE.Image,
-            props = {
-               anchor = util.vector2(.5, .5),
-               size = util.vector2(menu_block_width, 20),
-               resource = ui.texture {
-                  path = menu_block_path,
-                  size = util.vector2(menu_block_width, 15) }
-            }
-         }
-      }
-   }
-
-   local mainWindow = {
+   mainWindow = {
       type = ui.TYPE.Container,
       layer = "Windows",
       template = I.MWUI.templates.boxTransparentThick,
       props = {
          name = "mainWindow",
-         relativePosition = util.vector2(.5, .5),
-         anchor = util.vector2(.5, .5),
-         propagateEvents = false
+         relativePosition = util.vector2(0.5, 0.5)
       },
       content = ui.content {
          {
             type = ui.TYPE.Widget,
             props = {
                name = "mainWindowWidget",
-               size = util.vector2(widget_width, widget_height),
-               horizontal = false,
-               align = ui.ALIGNMENT.Center,
-               arrange = ui.ALIGNMENT.Center
+               size = util.vector2(widget_width, widget_height)
             },
             content = ui.content {
-               header,
                {
                   type = ui.TYPE.Text,
                   template = I.MWUI.templates.textNormal,             
@@ -151,12 +124,16 @@ local function createGoldMenu()
                }     
             },
             events = {
-               focusGain = async:callback(handleFocusLost)
+               focusGain = async:callback(handleFocusChildrenWon)
             }
          }
       },
       events = {
-         focusGain = async:callback(handleFocusWon)
+         focusGain = async:callback(handleFocusWon),
+         mousePress = async:callback(handleMousePress),
+         mouseMove = async:callback(handleMouseMove)
+
+
       } 
    }
 
