@@ -24,10 +24,8 @@ local widget_width = screenSize.x * width_ratio
 local widget_height = screenSize.y * height_ratio
 local menu_block_width = widget_width * 0.30
 local text_size = 18  
-
-
-local mouse_edition_current_position_x
-local mouse_edition_current_position_y
+local widget_pos_x = screenSize.x / 2
+local widget_pos_y = screenSize.y / 2
 
 local function generateAmountText()
    local playerInventory = types.Actor.inventory(self.object)
@@ -73,22 +71,14 @@ local function handleMouseMove(MouseEvent)
    if edition_mode then
       mouse_position_x = MouseEvent.position.x
       mouse_position_y = MouseEvent.position.y
-      delta_x = mouse_position_x - mouse_edition_current_position_x
-      delta_y = mouse_position_y - mouse_edition_current_position_y
       
-      widget_width = widget_width + delta_x
-      widget_height = widget_height + delta_y
-
-      mouse_edition_current_position_x = mouse_position_x
-      mouse_edition_current_position_y = mouse_position_y
-
+      widget_pos_x = mouse_position_x
+      widget_pos_y = mouse_position_y
    end
 end
 
 local function handleMousePress(MouseEvent)
    edition_mode = not edition_mode
-   mouse_edition_current_position_x = MouseEvent.position.x
-   mouse_edition_current_position_y = MouseEvent.position.y
    ui.showMessage(edition_mode and "Enter edition mode" or "Leaving edition mode")
 end
 
@@ -99,10 +89,11 @@ local function createGoldMenu()
    mainWindow = {
       type = ui.TYPE.Container,
       layer = "Windows",
-      template = I.MWUI.templates.boxTransparentThick,
+      template = I.MWUI.templates.padding,
       props = {
          name = "mainWindow",
-         relativePosition = util.vector2(0.5, 0.5)
+         position = util.vector2(widget_pos_x, widget_pos_y),
+         anchor = util.vector2(0.5, 0.5)
       },
       content = ui.content {
          {
