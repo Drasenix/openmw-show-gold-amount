@@ -45,11 +45,11 @@ local function generateAmountText()
    return goldAmount > 1 and amountText .. "s" or amountText
 end
 
-local function renderGoldAmountUI()
+local function renderGoldAmountHUD()
 
    element = ui.create({
       template = I.MWUI.templates.textNormal,
-      layer = "Windows",
+      layer = "HUD",
       type = ui.TYPE.Text,
       props = {
          text = generateAmountText(),         
@@ -137,15 +137,10 @@ local function onFrame(dt)
 
    if isInventoryOpen() then
       createGoldMenu()   
-   end   
-
-   local hudVisible = I.UI.isHudVisible()
-   
-   if not hudVisible then return end
-   
-   if not isInventoryOpen() then
-      renderGoldAmountUI()
    end
+
+   renderGoldAmountHUD()
+
 end
 
 return {
