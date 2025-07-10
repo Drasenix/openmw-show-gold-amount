@@ -54,7 +54,7 @@ local function renderGoldAmountHUD()
       props = {
          text = generateAmountText(),         
          textSize = configPlayer.hudOptions.TextSize,
-         relativePosition = util.vector2(configPlayer.hudOptions.OffsetXRelative, configPlayer.hudOptions.OffsetYRelative),         
+         relativePosition = util.vector2(configPlayer.hudOptions.OffsetX, configPlayer.hudOptions.OffsetY),         
          visible = true,
       },
    })
