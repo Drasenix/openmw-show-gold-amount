@@ -2,14 +2,13 @@ local ui = require('openmw.ui')
 local self = require('openmw.self')
 local core = require('openmw.core')
 local types = require('openmw.types')
+local storage = require('openmw.storage')
 local util = require("openmw.util")
 local I = require('openmw.interfaces')
 local async = require('openmw.async')
 local configPlayer = require('scripts.showGoldAmount.config.player')
 local l10n = core.l10n('showGoldAmount')
 
-
-local selfObject = self
 local element = nil
 local goldMenu = nil
 local NONE_L10N_ENTRY = "None"
@@ -23,8 +22,11 @@ local height_ratio = 0.05
 local widget_width = screenSize.x * width_ratio
 local widget_height = screenSize.y * height_ratio
 local menu_block_width = widget_width * 0.30
-local widget_pos_x = screenSize.x / 2
-local widget_pos_y = screenSize.y / 2
+
+
+local modData = storage.playerSection('showGoldAmountInterface')
+modData:set("pos_x", modData:get("pos_x") or screenSize.x /2)
+modData:set("pos_y", modData:get("pos_y") or screenSize.y /2)
 
 local function generateAmountText()
    local playerInventory = types.Actor.inventory(self.object)
@@ -63,8 +65,8 @@ local function handleMouseMove(MouseEvent)
       mouse_position_x = MouseEvent.position.x
       mouse_position_y = MouseEvent.position.y
       
-      widget_pos_x = mouse_position_x
-      widget_pos_y = mouse_position_y
+      modData:set("pos_x", mouse_position_x)
+      modData:set("pos_y", mouse_position_y)
    end
 end
 
@@ -75,7 +77,6 @@ end
 
 
 local function createGoldMenu()
-   local menu_block_path = "Textures\\menu_head_block_middle.dds"
 
    mainWindow = {
       type = ui.TYPE.Container,
@@ -83,7 +84,7 @@ local function createGoldMenu()
       template = I.MWUI.templates.padding,
       props = {
          name = "mainWindow",
-         position = util.vector2(widget_pos_x, widget_pos_y),
+         position = util.vector2(modData:get("pos_x"), modData:get("pos_y")),
          anchor = util.vector2(0.5, 0.5)
       },
       content = ui.content {
