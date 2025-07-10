@@ -135,11 +135,13 @@ local function onFrame(dt)
    
    destroyUiElements()
 
-   if isInventoryOpen() then
+   if isInventoryOpen() and configPlayer.interfaceOptions.b_FlagInterface then
       createGoldMenu()   
    end
-
-   renderGoldAmountHUD()
+   
+   if configPlayer.hudOptions.b_FlagHUD then
+      renderGoldAmountHUD()
+   end
 
 end
 

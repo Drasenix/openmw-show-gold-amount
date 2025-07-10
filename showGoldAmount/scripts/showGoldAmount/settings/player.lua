@@ -9,7 +9,7 @@ I.Settings.registerPage {
     key = 'ShowGoldAmount',
     l10n = 'ShowGoldAmount',
     name = 'ConfigTitle',
-    description = l10n('ConfigSummary'):gsub('%%{version}', versionString),
+    description = 'ConfigSummary',
 }
 
 I.Settings.registerGroup {
@@ -20,9 +20,15 @@ I.Settings.registerGroup {
     permanentStorage = true,
     settings = {        
         {
-            key = 'OffsetXRelative',
+            key = 'b_FlagHUD',
+            default = true,
+            renderer = 'checkbox',
+            name = 'FlagHUD',
+        },
+        {
+            key = 'OffsetX',
             renderer = 'number',
-            name = 'OffsetXRelative',
+            name = 'OffsetX',
             argument = {
                 min = 0.0,
                 max = 1.0,
@@ -30,9 +36,9 @@ I.Settings.registerGroup {
             default = 0.01,
         },
         {
-            key = 'OffsetYRelative',
+            key = 'OffsetY',
             renderer = 'number',
-            name = 'OffsetYRelative',
+            name = 'OffsetY',
             argument = {
                 min = 0.0,
                 max = 1.0,
@@ -83,6 +89,12 @@ I.Settings.registerGroup {
                 max = 50.0,
             },
             default = 20.0,
-        }
+        },
+        {
+            key = 'b_FlagInterface',
+            default = true,
+            renderer = 'checkbox',
+            name = 'FlagInterface',
+        },
     }
 }
