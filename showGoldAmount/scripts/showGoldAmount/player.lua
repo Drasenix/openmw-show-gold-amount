@@ -23,14 +23,13 @@ local height_ratio = 0.05
 local widget_width = screenSize.x * width_ratio
 local widget_height = screenSize.y * height_ratio
 local menu_block_width = widget_width * 0.30
-local text_size = 18  
 local widget_pos_x = screenSize.x / 2
 local widget_pos_y = screenSize.y / 2
 
 local function generateAmountText()
    local playerInventory = types.Actor.inventory(self.object)
    local goldAmount = playerInventory:countOf('gold_001')
-   local goldName = l10n(configPlayer.options.s_GoldName)
+   local goldName = l10n(configPlayer.hudOptions.s_GoldName)
    local amountText = tostring(goldAmount)   
    
    if goldName == l10n(NONE_L10N_ENTRY) then
@@ -52,19 +51,11 @@ local function renderGoldAmountUI()
       type = ui.TYPE.Text,
       props = {
          text = generateAmountText(),         
-         textSize = configPlayer.options.n_TextSize,
-         relativePosition = util.vector2(configPlayer.options.n_InfoWindowOffsetXRelative, configPlayer.options.n_InfoWindowOffsetYRelative),         
+         textSize = configPlayer.hudOptions.TextSize,
+         relativePosition = util.vector2(configPlayer.hudOptions.OffsetXRelative, configPlayer.hudOptions.OffsetYRelative),         
          visible = true,
       },
    })
-end
-
-local function handleFocusWon() 
-   return
-end
-
-local function handleFocusChildrenWon() 
-   return
 end
 
 local function handleMouseMove(MouseEvent)
@@ -110,21 +101,15 @@ local function createGoldMenu()
                      anchor = util.vector2(.5, .5),
                      relativePosition = util.vector2(.5, .5),
                      text = generateAmountText(),
-                     textSize = text_size,                          
+                     textSize = configPlayer.interfaceOptions.TextSize,                          
                   }
                }     
-            },
-            events = {
-               focusGain = async:callback(handleFocusChildrenWon)
             }
          }
       },
       events = {
-         focusGain = async:callback(handleFocusWon),
          mousePress = async:callback(handleMousePress),
          mouseMove = async:callback(handleMouseMove)
-
-
       } 
    }
 

@@ -1,14 +1,17 @@
 local async = require('openmw.async')
 local storage = require('openmw.storage')
 
-local options = storage.playerSection('Settings/ShowGoldAmount/ClientOptions')
+local hudOptions = storage.playerSection('Settings/ShowGoldAmount/HUDOptions')
+local interfaceOptions = storage.playerSection('Settings/ShowGoldAmount/InterfaceOptions')
 local configPlayer = {}
 
 local function updateConfig()
-	configPlayer.options = options:asTable()
+	configPlayer.hudOptions = hudOptions:asTable()
+	configPlayer.interfaceOptions = interfaceOptions:asTable()
 end
 
 updateConfig()
-options:subscribe(async:callback(updateConfig))
+hudOptions:subscribe(async:callback(updateConfig))
+interfaceOptions:subscribe(async:callback(updateConfig))
 
 return configPlayer
