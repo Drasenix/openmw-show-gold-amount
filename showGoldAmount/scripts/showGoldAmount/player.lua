@@ -79,34 +79,15 @@ end
 local function createGoldMenu()
 
    mainWindow = {
-      type = ui.TYPE.Container,
+      type = ui.TYPE.Text,
       layer = "Windows",
-      template = I.MWUI.templates.padding,
+      template = I.MWUI.templates.textNormal,             
       props = {
          name = "mainWindow",
          position = util.vector2(modData:get("pos_x"), modData:get("pos_y")),
-         anchor = util.vector2(0.5, 0.5)
-      },
-      content = ui.content {
-         {
-            type = ui.TYPE.Widget,
-            props = {
-               name = "mainWindowWidget",
-               size = util.vector2(widget_width, widget_height)
-            },
-            content = ui.content {
-               {
-                  type = ui.TYPE.Text,
-                  template = I.MWUI.templates.textNormal,             
-                  props = {
-                     anchor = util.vector2(.5, .5),
-                     relativePosition = util.vector2(.5, .5),
-                     text = generateAmountText(),
-                     textSize = configPlayer.interfaceOptions.TextSize,                          
-                  }
-               }     
-            }
-         }
+         anchor= util.vector2(.5, .5),
+         text = generateAmountText(),
+         textSize = configPlayer.interfaceOptions.TextSize,                          
       },
       events = {
          mousePress = async:callback(handleMousePress),
