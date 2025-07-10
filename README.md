@@ -14,7 +14,10 @@ Launch the game
 # How to use
 
 In game, go to the "Scripts" tab in the options.
-You can choose the gold Name, the Text SIze, the positionning (x,y) and whether or not to display the gold amount when the game is on pause.
+You can choose the gold Name, the Text SIze, the positionning (x,y) and whether or not to display the gold amount.
+
+You can choose to display the gold amount on the Inventory and the Text Size.
+You can drag and drop the amount on your Interface.
 
 # Nexus Mode
 
