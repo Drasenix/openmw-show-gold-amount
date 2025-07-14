@@ -120,7 +120,7 @@ local function onFrame(dt)
       createGoldMenu()   
    end
    
-   if configPlayer.hudOptions.b_FlagHUD then
+   if configPlayer.hudOptions.b_FlagHUD and I.UI.isHudVisible() then
       renderGoldAmountHUD()
    end
 
