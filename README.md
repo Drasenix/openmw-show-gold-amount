@@ -25,6 +25,6 @@ You can drag and drop the amount on your Interface :
 
 \*\*/!\ Don't move the cursor too fast not to lose focus. You can still bring it back to re-gain focus and be able to continue drag and drop /!\*\*
 
-# Nexus Mode
+# Nexus Mods
 
 https://www.nexusmods.com/morrowind/mods/57105
