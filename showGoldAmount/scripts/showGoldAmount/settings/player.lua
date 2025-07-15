@@ -111,7 +111,7 @@ I.Settings.registerGroup {
                 }
             },
             description = 'Interface_desc',
-            default = 'Inventory',
+            default = 'All',
         }
     }
 }
