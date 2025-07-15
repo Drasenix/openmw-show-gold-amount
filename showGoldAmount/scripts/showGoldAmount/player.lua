@@ -107,7 +107,7 @@ local function interfaceRequiredIsVisible()
       if windows_opened ~= nil then
          for key,value in pairs(windows_opened) do      
             if value == configPlayer.interfaceOptions.s_Interface then
-               return true
+               return true and I.UI.getMode() == "Interface"
             end
          end
       end
