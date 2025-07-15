@@ -96,5 +96,22 @@ I.Settings.registerGroup {
             renderer = 'checkbox',
             name = 'FlagInterface',
         },
+        {
+            key = 's_Interface',
+            renderer = 'select',
+            name = 'Interface',
+            argument = {
+                l10n = 'ShowGoldAmount',
+                items = {
+                    'Map',
+                    'Magic',
+                    'Inventory',
+                    'Stats',
+                    'All'
+                }
+            },
+            description = 'Interface_desc',
+            default = 'Inventory',
+        }
     }
 }

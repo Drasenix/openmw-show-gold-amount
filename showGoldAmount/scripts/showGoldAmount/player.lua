@@ -22,7 +22,7 @@ local height_ratio = 0.05
 local widget_width = screenSize.x * width_ratio
 local widget_height = screenSize.y * height_ratio
 local menu_block_width = widget_width * 0.30
-
+local windows_opened = {}
 
 local modData = storage.playerSection('showGoldAmountInterface')
 modData:set("pos_x", modData:get("pos_x") or screenSize.x /2)
@@ -98,8 +98,20 @@ local function createGoldMenu()
    goldMenu = ui.create(mainWindow)
 end
 
-local function isInventoryOpen()
-   return I.UI.getMode() == 'Interface'
+local function interfaceRequiredIsVisible()
+   if configPlayer.interfaceOptions.s_Interface == "All" then
+      if I.UI.getMode() == "Interface" then
+         return true
+      end
+      return false
+   end
+
+   for key,value in pairs(windows_opened) do      
+      if value == configPlayer.interfaceOptions.s_Interface then
+         return true
+      end
+   end
+   return false
 end
 
 local function destroyUiElements()
@@ -116,7 +128,7 @@ local function onFrame(dt)
    
    destroyUiElements()
 
-   if isInventoryOpen() and configPlayer.interfaceOptions.b_FlagInterface then
+   if interfaceRequiredIsVisible() and configPlayer.interfaceOptions.b_FlagInterface then
       createGoldMenu()   
    end
    
@@ -126,8 +138,27 @@ local function onFrame(dt)
 
 end
 
+local function addUiMode(options)
+   windows_opened = options.windows
+end
+
+local function setUiMode(options)
+   windows_opened = options.windows
+end
+
+local function uiModeChanged(data)
+   if data.newMode == nil then
+      windows_opened = {}
+   end
+end
+
 return {
    engineHandlers = {
-      onFrame = onFrame      
-   }
+      onFrame = onFrame,      
+   },
+   eventHandlers = {      
+      AddUiMode = addUiMode,
+      SetUiMode = setUiMode,
+      UiModeChanged = uiModeChanged
+   },
 }
