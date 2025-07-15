@@ -103,14 +103,14 @@ local function interfaceRequiredIsVisible()
       if I.UI.getMode() == "Interface" then
          return true
       end
-      return false
-   end
-
-   for key,value in pairs(windows_opened) do      
-      if value == configPlayer.interfaceOptions.s_Interface then
-         return true
+   else
+      for key,value in pairs(windows_opened) do      
+         if value == configPlayer.interfaceOptions.s_Interface then
+            return true
+         end
       end
    end
+
    return false
 end
 
