@@ -27,7 +27,7 @@ You can drag and drop the amount on your Interface :
 
 # Compatibility
 
-To use it well with Smart Interface Menu Opening (SIMO) mod, be sure to associate the Gold amount with the right interface "Map/Magic/Inventory/Stats"
+To use it well with [Smart Interface Menu Opening (SIMO)](https://www.nexusmods.com/morrowind/mods/57140) mod, be sure to associate the Gold amount with the right interface "Map/Magic/Inventory/Stats"
 
 If you don't use this mod, just let "All" in the settings.
 
